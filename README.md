@@ -1,5 +1,4 @@
-# DezSys_1516
-DezSys Schuljahr 2015/16
+# DezSys Schuljahr 2015/16
 
-Ein Branch pro Projekt
+Ein Branch pro Aufgabe
 - ReSTful Service und SOA => ReST
