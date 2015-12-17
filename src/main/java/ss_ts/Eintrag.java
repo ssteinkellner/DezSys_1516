@@ -25,11 +25,47 @@ public class Eintrag {
 	}
 	
 	public boolean save(){
-		return false;
+		boolean success = false;
+		String query;
+		
+		for(int i=0; i<10 && !success; i++){
+			
+			// set transaction serializable
+
+			query = "SELECT * FROM eintrag WHERE title LIKE '" + title + "';";
+			boolean exists = (Math.random() > 0.5);
+			
+			try{
+				if(exists){
+					query = "UPDATE eintrag SET (begriffe, file) = ('" + implode(begriffe) + "','" + file + "') WHERE title LIKE '" + title + "';";
+				}else{
+					query = "INSERT INTO eintrag VALUES('" + title + "','" + implode(begriffe) + "','" + file + "');";
+				}
+				
+				success = true;
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+
+			System.out.println("[DEBUG][Eintrag.save] " + query);
+		}
+		
+		return success;
+	}
+	
+	private String implode(String[] array){
+		String text = "";
+		
+		for(String value : array){
+			if(!text.isEmpty()) text += ", ";
+			text += value;
+		}
+		
+		return text;
 	}
 	
 	public static Eintrag load(String titel){
-		return new Eintrag(titel,new String[0],"");
+		return new Eintrag(titel,"uvw, xyz".split(", "),titel+".html");
 	}
 	
 	/**
@@ -48,21 +84,28 @@ public class Eintrag {
 			if(!where.isEmpty()){
 				if(begriff.startsWith("& ")){
 					sub = 2;
-					if(!lastIsAnd) where = " (" + where + ") ";
+					if(!lastIsAnd) where = "( " + where + " )";
 					where += " AND ";
 					lastIsAnd = true;
 				}else{
-					if(lastIsAnd) where = " (" + where + ") ";
+					if(lastIsAnd) where = "( " + where + " )";
 					where += " OR ";
 					lastIsAnd = false;
 				}
 			}
 			
-			where += begriff.substring(sub);
+			where += "begriffe LIKE '%" + begriff.substring(sub) + "%'";
 		}
 		
-		System.out.println(where);
+		String query = "SELECT FROM eintrag WHERE " + where + ";";
 		
-		return new Eintrag[0];
+		System.out.println("[DEBUG][Eintrag.search] " + query);
+		
+		return new Eintrag[]{ new Eintrag("test",suchbegriffe,"test.html")};
+	}
+	
+	@Override
+	public String toString(){
+		return "Eintrag[title=" + title + ", begriffe={" + implode(begriffe) + "}, file=" + file + "]";
 	}
 }
