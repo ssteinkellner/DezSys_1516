@@ -1,4 +1,4 @@
-package test;
+package ss_ts;
 
 import ss_ts.Eintrag;
 
