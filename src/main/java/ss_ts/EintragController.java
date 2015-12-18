@@ -15,7 +15,8 @@ public class EintragController {
 		UserCache uc = new UserCache();
 		conn = new ConnectionHandler(uc);
 		
-		conn.setHost("192.168.20.130");
+		conn.setDatabaseType(ConnectionHandler.POSTGRES);
+		conn.setHost("192.168.20.130:5432");
 		conn.setDatabase("soarest");
 		uc.setUser("soarest_user");
 		uc.setPassword("soarest_passwort");
