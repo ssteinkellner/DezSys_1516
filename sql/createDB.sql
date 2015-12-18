@@ -4,7 +4,10 @@
 
 \c template1
 DROP DATABASE IF EXISTS soarest;
-CREATE DATABASE soarest;
+DROP USER IF EXISTS soarest_user;
+
+CREATE USER soarest_user PASSWORD 'soarest_passwort';
+CREATE DATABASE soarest owner = soarest_user;
 \c soarest
 
 

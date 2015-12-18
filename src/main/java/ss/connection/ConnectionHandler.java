@@ -58,10 +58,10 @@ public class ConnectionHandler {
 		}
 
 		try {
-			connection = (Connection) DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, usercache.getUser(), usercache.getPassword());
+			connection = (Connection) DriverManager.getConnection("jdbc:postgresql://" + host + "/" + database, usercache.getUser(), usercache.getPassword());
 			System.out.println("Successfully connected to " + database + " on " + host);
 		} catch(SQLException ex) {
-			System.err.println("DB connection error!");
+			System.err.println("DB connection error! " + ex.getMessage());
 		}
 	}
 	
@@ -74,5 +74,14 @@ public class ConnectionHandler {
 			}
 		}
 	}
-
+	
+	public String toString(){
+		String text = "Host=" + host + ", Database=" + database + ", ";
+		if(usercache == null){
+			text += "usercache=null";
+		}else{
+			text += "Username=" + usercache.getUser();
+		}
+		return "ConnectionHandler[" + text + "]";
+	}
 }

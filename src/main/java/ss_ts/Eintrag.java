@@ -1,12 +1,16 @@
 package ss_ts;
 
+import java.sql.Connection;
+
 public class Eintrag {
-	
+	private Connection conn;
 	private String title;
 	private String[] begriffe;
 	private String file;
+	private static String[] connNull = new String[]{"Connection shouldn't be NULL!","Check Server Log for more Information."};
 	
-	public Eintrag(String titel, String[] suchbegriffe, String dateiname){
+	public Eintrag(Connection connection, String titel, String[] suchbegriffe, String dateiname){
+		conn = connection;
 		title = titel;
 		begriffe = suchbegriffe;
 		file = dateiname;
@@ -25,6 +29,10 @@ public class Eintrag {
 	}
 	
 	public boolean save(){
+		if(conn == null){
+			return false;
+		}
+		
 		boolean success = false;
 		String query;
 		
@@ -64,8 +72,12 @@ public class Eintrag {
 		return text;
 	}
 	
-	public static Eintrag load(String titel){
-		return new Eintrag(titel,"uvw, xyz".split(", "),titel+".html");
+	public static Eintrag load(Connection connection, String titel){
+		if(connection == null){
+			return new Eintrag(connection, "Error",connNull,null);
+		}
+		
+		return new Eintrag(connection, titel,"uvw, xyz".split(", "),titel+".html");
 	}
 	
 	/**
@@ -74,7 +86,11 @@ public class Eintrag {
 	 * begriffe die mit "& " beginnen, werden mit und, alles andere mit oder zusammengehängt
 	 * @return
 	 */
-	public static Eintrag[] search(String[] suchbegriffe){
+	public static Eintrag[] search(Connection connection, String[] suchbegriffe){
+		if(connection == null){
+			return new Eintrag[]{ new Eintrag(connection, "Error",connNull,null) };
+		}
+		
 		String where = "";
 		boolean lastIsAnd = false;
 		int sub;
@@ -101,11 +117,11 @@ public class Eintrag {
 		
 		System.out.println("[DEBUG][Eintrag.search] " + query);
 		
-		return new Eintrag[]{ new Eintrag("test",suchbegriffe,"test.html")};
+		return new Eintrag[]{ new Eintrag(connection,"test",suchbegriffe,"test.html")};
 	}
 	
 	@Override
 	public String toString(){
-		return "Eintrag[title=" + title + ", begriffe={" + implode(begriffe) + "}, file=" + file + "]";
+		return "Eintrag[title=" + title + ", begriffe={" + implode(begriffe) + "}, file=" + file + ", Connection: " + conn + "]";
 	}
 }
