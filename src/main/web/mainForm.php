@@ -2,9 +2,20 @@
 <html>
 	<head>
 		<title>ReSTful</title>
+		<link rel="Stylesheet" type="text/css" href="index.css" >
 	</head>
 	<body>
 		<h1>ReSTful</h1>
+		
+		<font style="color:#FF0000; display:block;">
+			<?php if(isset($err) && !empty($err)) echo $err; ?>
+		</font>
+		<font style="color:#00AAAA; display:block;">
+			<?php if(isset($msg) && !empty($msg)) echo $msg; ?>
+		</font>
+		<font style="color:#00AA00; display:block;">
+			<?php if(isset($dbg) && !empty($dbg)) echo $dbg; ?>
+		</font>
 		
 		<h2>vorhandene Eintr&auml;ge</h2>
 		
@@ -49,8 +60,9 @@
 		<form method="PUT">
 			<select name="name">
 				<option disabled selected label="bitte w&auml;hlen">
+				<option label="Beispiel" value="Beispiel">
 				<?php if(isset($eintraege)) foreach($eintraege as $eintrag){ ?>
-				<option label="<?php echo $eintrag['name']; ?>">
+				<option label="<?php echo $eintrag['name']; ?>" value="<?php echo $eintrag['name']; ?>">
 				<?php } ?>
 			</select>
 			<input type="text" name="tags" placeHolder="Suchbegriffe">
@@ -65,8 +77,9 @@
 		<form method="DELETE">
 			<select name="name">
 				<option disabled selected label="bitte w&auml;hlen">
+				<option label="Beispiel" value="Beispiel">
 				<?php if(isset($eintraege)) foreach($eintraege as $eintrag){ ?>
-				<option label="<?php echo $eintrag['name']; ?>">
+				<option label="<?php echo $eintrag['name']; ?>" value="<?php echo $eintrag['name']; ?>">
 				<?php } ?>
 			</select>
 			<input type="submit" value="l&ouml;schen">

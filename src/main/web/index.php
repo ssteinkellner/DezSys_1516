@@ -1,7 +1,7 @@
 <?php
 $err = '';
 $msg = '';
-$debug = '';
+$dbg = '';
 
 
 include 'mainForm.php';
