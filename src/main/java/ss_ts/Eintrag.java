@@ -122,6 +122,6 @@ public class Eintrag {
 	
 	@Override
 	public String toString(){
-		return "Eintrag[title=" + title + ", begriffe={" + implode(begriffe) + "}, file=" + file + ", Connection: " + conn + "]";
+		return "Eintrag[title=" + title + ", begriffe={" + implode(begriffe) + "}, file=" + file + ", Connection=" + conn + "]";
 	}
 }
