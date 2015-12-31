@@ -1,5 +1,7 @@
 input, select, td, th { padding: 10px; }
 
+tr:not(:first-child):hover { background: #00FFFF; }
+
 /* breite von select und input wird anders berechnet */
 input[type=text] { width: 150px; }
 input[type=submit], input[type=button], select { width: 174px; }

@@ -28,17 +28,6 @@
 				<th>Suchbegriffe</th>
 				<th>Datei</th>
 			</tr>
-			<tr>
-				<td>
-					<span onClick="edit(this);" class="bt">bearbeiten</span>,
-					<span onClick="del(this);" class="bt">l&ouml;schen</span>
-				</td>
-				<td>Beispiel</td>
-				<td>beispiel, bsp</td>
-				<td>
-					<a href="files/beispiel.html">beispiel.html</a>
-				</td>
-			</tr>
 			<?php if(isset($eintraege)) foreach($eintraege as $eintrag){ ?>
 			<tr>
 				<td>
@@ -47,9 +36,13 @@
 				</td>
 				<td><?php echo $eintrag['name']; ?></td>
 				<td><?php echo $eintrag['tags']; ?></td>
+				<?php if($eintrag['file'] && file_exists('files/'.$eintrag['file'])){ ?>
 				<td>
-					<a href="files/<?php echo $eintrag['file']; ?>"><?php echo $eintrag['file']; ?></a>
+					<a href="files/<?php echo $eintrag['file']; ?>" target="_blank"><?php echo $eintrag['file']; ?></a>
 				</td>
+				<? }else { ?>
+				<td style="background: #FF5555;"><?php echo $eintrag['file']; ?></td>
+				<?php } ?>
 			</tr>
 			<?php } ?>
 		</table>
