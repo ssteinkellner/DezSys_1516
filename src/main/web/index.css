@@ -1,5 +1,6 @@
 input, select, td, th { padding: 10px; }
 
+table { border-collapse: collapse; }
 tr:not(:first-child):hover { background: #00FFFF; }
 
 /* breite von select und input wird anders berechnet */
@@ -14,4 +15,18 @@ input[type=submit], input[type=button], select { width: 174px; }
 .hidden {
 	display: none;
 	visibility: hidden;
+}
+
+form {
+	position: fixed;
+	right: 0;
+	top: 0;
+	padding: 10px;
+	
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-bottom-left-radius: 10px;
+}
+form input {
+	display: block;
 }
