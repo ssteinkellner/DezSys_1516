@@ -12,6 +12,11 @@ input[type=submit], input[type=button], select { width: 174px; }
 	cursor: pointer;
 }
 
+.fileName {
+	display: block;
+	font-style: italic;
+}
+
 .hidden {
 	display: none;
 	visibility: hidden;

@@ -42,7 +42,7 @@ function edit(element){
 	var entry = convertRow(element.parentNode.parentNode);
 	var dialog = document.forms.put;
 	
-	dialog.querySelector('h2').innerHTML = 'Eintrag bearbeiten';
+	dialog.querySelector('h3').innerHTML = 'Eintrag bearbeiten';
 	dialog.name.value = entry.name;
 	dialog.tags.value = entry.tags;
 	dialog.file.value = entry.file;
@@ -60,7 +60,7 @@ function create(){
 	
 	var dialog = document.forms.put;
 	
-	dialog.querySelector('h2').innerHTML = 'Eintrag anlegen';
+	dialog.querySelector('h3').innerHTML = 'Eintrag anlegen';
 	dialog.name.value = '';
 	dialog.tags.value = '';
 	dialog.file.value = '';

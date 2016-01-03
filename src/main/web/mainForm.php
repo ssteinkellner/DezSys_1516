@@ -48,7 +48,7 @@
 		</table>
 		
 		<form name="put" class="hidden" method="POST">
-			<h2><!-- Eintrag anlegen | Eintrag bearbeiten --></h2>
+			<h3><!-- Eintrag anlegen | Eintrag bearbeiten --></h3>
 			
 			<input type="text" name="name" placeHolder="Name">
 			<input type="text" name="tags" placeHolder="Suchbegriffe">
@@ -60,7 +60,7 @@
 		</form>
 		
 		<form name="delete" class="hidden" method="POST">
-			<h2>Eintrag l&ouml;schen</h2>
+			<h3>Eintrag l&ouml;schen</h3>
 		
 			<input type="hidden" name="name">
 			<p>
