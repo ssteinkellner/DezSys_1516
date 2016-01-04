@@ -4,14 +4,14 @@ if(version_compare(PHP_VERSION, '5.4') < 0){
 	echo '<h3 style="color:red;">PHP 5.4 or higher needed!</h3>'."\n";
 	include 'foot.php';
 	exit(0);
-} 
+}
 
 $err = '';
 $msg = '';
 $dbg = '';
 
 $eintraege = [
-	['name' => 'Beispiel', 'tags' => 'bsp', 'file' => 'beispiel.html'],
+	['name' => 'Beispiel', 'tags' => 'bsp, beispiel', 'file' => 'beispiel.html'],
 	['name' => 'Test', 'tags' => 'test', 'file' => 'test.html'],
 	['name' => 'Lehrer', 'tags' => 'lehrer, schule, unterricht', 'file' => 'lehrer.html'],
 	['name' => 'Wikipedia', 'tags' => 'wissen, sammlung, vorbild, weiterleitung', 'file' => 'wikipedia.php'],
@@ -62,7 +62,7 @@ if(isset($_POST['mode'])) switch($_POST['mode']){
 		
 		$success = false;
 		foreach($eintraege as $index => $eintrag2){
-			$dbg .= $eintrag2['name'].' == '.$_POST['oldName']."<br />\n";
+//			$dbg .= $eintrag2['name'].' == '.$_POST['oldName']."<br />\n";
 			if($eintrag2['name'] == $_POST['oldName']){
 				$eintraege[$index] = $eintrag;
 				$success = true;
@@ -85,7 +85,7 @@ if(isset($_POST['mode'])) switch($_POST['mode']){
 		
 		$success = false;
 		foreach($eintraege as $index => $eintrag){
-			$dbg .= $eintrag['name'].' == '.$_POST['name']."<br />\n";
+//			$dbg .= $eintrag['name'].' == '.$_POST['name']."<br />\n";
 			if($eintrag['name'] == $_POST['name']){
 				unset($eintraege[$index]);
 				$success = true;
