@@ -51,10 +51,11 @@
 			<h3><!-- Eintrag anlegen | Eintrag bearbeiten --></h3>
 			
 			<input type="text" name="name" placeHolder="Name">
+			<input type="hidden" name="oldName">
 			<input type="text" name="tags" placeHolder="Suchbegriffe">
 			<input type="text" name="file" placeHolder="Datei">
 			
-			<input type="hidden" name="mode" value="<!-- insert | update | delete -->">
+			<input type="hidden" name="mode" value="<!-- insert | update -->">
 			<input type="submit" value="Speichern">
 			<input type="button" onclick="closeDialogs();" value="Abbrechen">
 		</form>

@@ -6,9 +6,14 @@ function convertRow(row){
 	
 	var entry = {
 		'name': elements[1].innerHTML,
-		'tags': elements[2].innerHTML,
-		'file': elements[3].children[0].innerHTML
+		'tags': elements[2].innerHTML
 	};
+	
+	if(elements[3].children.length > 0){
+		entry['file'] = elements[3].children[0].innerHTML;
+	}else{
+		entry['file'] = elements[3].innerHTML;
+	}
 	
 	return entry;
 }
@@ -44,9 +49,10 @@ function edit(element){
 	
 	dialog.querySelector('h3').innerHTML = 'Eintrag bearbeiten';
 	dialog.name.value = entry.name;
+	dialog.oldName.value = entry.name;
 	dialog.tags.value = entry.tags;
 	dialog.file.value = entry.file;
-	dialog.mode = 'update';
+	dialog.mode.value = 'update';
 	
 	dialog.className = '';
 	dialog.name.focus();
@@ -64,7 +70,7 @@ function create(){
 	dialog.name.value = '';
 	dialog.tags.value = '';
 	dialog.file.value = '';
-	dialog.mode = 'insert';
+	dialog.mode.value = 'insert';
 	
 	dialog.className = '';
 	dialog.name.focus();
