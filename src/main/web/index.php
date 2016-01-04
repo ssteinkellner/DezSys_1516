@@ -1,6 +1,6 @@
 <?php
 
-if (version_compare(/*PHP_VERSION*/'5.3', '5.4') < 0) die('<h3 style="color:red;">PHP 5.4 or higher needed!</h3>');
+if (version_compare(PHP_VERSION, '5.4') < 0) die('<h3 style="color:red;">PHP 5.4 or higher needed!</h3>');
 
 $err = '';
 $msg = '';
