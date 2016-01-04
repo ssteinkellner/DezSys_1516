@@ -1,8 +1,7 @@
 <?php
 
-if (version_compare(PHP_VERSION, '5.4') < 0){ ?>
-<h3 style="color:red;">PHP 5.4 or higher needed!</h3>
-<?php
+if (version_compare(PHP_VERSION, '5.4') < 0){
+	echo '<h3 style="color:red;">PHP 5.4 or higher needed!</h3>';
 	include 'foot.php';
 	exit(0);
 } 
