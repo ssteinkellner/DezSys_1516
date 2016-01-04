@@ -72,8 +72,6 @@
 			<input type="button" onclick="closeDialogs();" value="Abbrechen">
 		</form>
 		
-		<div style="position:fixed; bottom:0; right:0; padding:5px;">
-			created by Sebastian Steinkellner
-		</div>
+		<?php include 'foot.php'; ?>
 	</body>
 </html>
