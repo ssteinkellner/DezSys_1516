@@ -15,7 +15,7 @@ $eintraege = [
 	['name' => 'Test', 'tags' => 'test', 'file' => 'test.html'],
 	['name' => 'Lehrer', 'tags' => 'lehrer, schule, unterricht', 'file' => 'lehrer.html'],
 	['name' => 'Wikipedia', 'tags' => 'wissen, sammlung, vorbild, weiterleitung', 'file' => 'wikipedia.php'],
-	['name' => 'TGM', 'tags' => 'schule, unterricht, bauwerk', 'file' => 'tgm.html'],
+	['name' => 'TGM', 'tags' => 'schule, unterricht, bauwerk', 'file' => 'tgm.html']
 ];
 
 if(isset($_POST['mode'])) switch($_POST['mode']){
@@ -30,6 +30,7 @@ if(isset($_POST['mode'])) switch($_POST['mode']){
 				break;
 			}
 		}
+		if(!empty($err)) break;
 		
 		array_push($eintraege, $eintrag);
 		$success = true;
@@ -57,6 +58,7 @@ if(isset($_POST['mode'])) switch($_POST['mode']){
 				break;
 			}
 		}
+		if(!empty($err)) break;
 		
 		$success = false;
 		foreach($eintraege as $index => $eintrag2){

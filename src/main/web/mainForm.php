@@ -19,8 +19,13 @@
 		</span>
 		
 		<h2>vorhandene Eintr&auml;ge</h2>
+		<p>
+			<?php $c = (isset($eintraege)?count($eintraege):0); ?>
+			Es werden <?php echo (($c>0)?$c:'keine'); ?> <?php echo (($c==1)?'Eintrag':'Eintr&auml;ge')?> angezeigt.
+		</p>
 		
 		<span onClick="create();" class="bt">Eintrag anlegen</span>
+		<?php if(isset($eintraege)){ ?>
 		<table border=1>
 			<tr>
 				<th>Aktionen</th>
@@ -28,7 +33,7 @@
 				<th>Suchbegriffe</th>
 				<th>Datei</th>
 			</tr>
-			<?php if(isset($eintraege)) foreach($eintraege as $eintrag){ ?>
+			<?php foreach($eintraege as $eintrag){ ?>
 			<tr>
 				<td>
 					<span onClick="edit(this);" class="bt">bearbeiten</span>,
@@ -46,6 +51,7 @@
 			</tr>
 			<?php } ?>
 		</table>
+		<?php }?>
 		
 		<form name="put" class="hidden" method="POST">
 			<h3><!-- Eintrag anlegen | Eintrag bearbeiten --></h3>
