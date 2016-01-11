@@ -3,7 +3,7 @@
 ## Team
 
 - Stefan Geyer
-- Sebastian Steinklellner
+- Sebastian Steinkellner
 
 ## Ziele
 
