@@ -1,6 +1,6 @@
 # DezSys08
-**GPGPU**
 
+Aufgabe: **GPGPU**
 **Beginn**: 2016-01-08
 
 ## Team
