@@ -1,9 +1,12 @@
 # DezSys08
+**GPGPU**
+
+**Beginn**: 2016-01-08
 
 ## Team
 
-- Stefan Geyer
-- Sebastian Steinkellner
+- Geyer Stefan
+- Steinkellner Sebastian
 
 ## Ziele
 
