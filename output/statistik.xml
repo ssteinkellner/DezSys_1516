@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="statistik.xsl" ?>
+<!--
+autor: ssteinkellner
+version: 2016.01.08
+-->
+<data>
+	<run>
+		<rounds>10</rounds>
+		<time>10</time>
+	</run>
+	<run>
+		<rounds>100</rounds>
+		<time>50</time>
+	</run>
+	<run>
+		<rounds>1000</rounds>
+		<time>200</time>
+	</run>
+	<run>
+		<rounds>10000</rounds>
+		<time>500</time>
+	</run>
+</data>

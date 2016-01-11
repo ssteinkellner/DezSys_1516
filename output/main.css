@@ -1,0 +1,14 @@
+/*
+autor: ssteinkellner
+version: 2016.01.08
+*/
+
+table tr div {
+	background: #AAAAAA;
+	height: 20px;
+//	border: 1px solid black;
+	
+	transition: width 2s;
+}
+
+table { border-collapse: collapse; }
