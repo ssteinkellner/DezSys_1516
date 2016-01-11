@@ -1,6 +1,6 @@
 Aufgabe GPGPU
 =============
-Beginn: 2015-12-11
+Beginn: 2016-01-08
 
 Aufgabenstellung:
 Informieren Sie sich über die Möglichkeiten der Nutzung von GPUs in normalen Desktop-Anwendungen. Zeigen Sie dazu im Gegensatz den Vorteil der GPUs in rechenintensiven Implementierungen auf [1Pkt].
