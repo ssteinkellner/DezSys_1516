@@ -1,3 +1,7 @@
+package ss_sg;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * @autor ssteinkellner
@@ -8,15 +12,18 @@ public class Frame extends JFrame{
 	
 	public Frame(JPanel view){
 		this.setTitle("GPGPU");
-		this.setSize(300,200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setSize(250,130);
+		this.setLocation(100,100);
+		this.setResizable(false);
 		
 		this.view = view;
 		this.add(view);
 		this.setVisible(true);
 	}
 	
-	public replaceView(JPanel view){
+	public void replaceView(JPanel view){
 		this.remove(this.view);
 		
 		this.view = view;

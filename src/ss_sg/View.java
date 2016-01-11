@@ -1,36 +1,70 @@
+package ss_sg;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * @autor ssteinkellner
  * @version 20160110
  */
 public class View extends JPanel implements ActionListener{
-	private JButton start;
-	private JComboBox mode;
-	private NumberField runs, add;
+	private JButton select, start;
+	private JComboBox<Character> mode;
+	private NumberField runs, delta;
+	private JLabel ldelta, lruns;
 	
 	public View(){
-		runs = new NumberField();
-		start = new JButton("Start");
-		mode = new JComboBox(new String[]{"+","*"});
-		add = new NumberField();
+		/* elemente erstellen */
+		lruns = new JLabel("Runden");
+		runs = new NumberField(10);
 		
+		ldelta = new JLabel("Durchlaufanstieg");
+		delta = new NumberField(10,true);
+		mode = new JComboBox(new Character[]{'+','*'});
+
+		start = new JButton("Start");
+		select = new JButton("Speicherort wählen");
+		
+		/* listener */
+		select.addActionListener(this);
 		start.addActionListener(this);
 		
-		this.setLayout(new GridLayout(2,2));
+		/* positionierung */
+		lruns.setBounds(10,10,100,25);
+		runs.setBounds(160,10,70,25);
+		
+		ldelta.setBounds(10,40,100,25);
+		mode.setBounds(120,40,40,24);
+		delta.setBounds(160,40,70,25);
+
+		select.setBounds(10,70,150,25);
+		start.setBounds(160,70,70,25);
+		
+		/* anzeigen */
+		this.setLayout(null);
+		this.add(lruns);
 		this.add(runs);
-		this.add(start);
+		this.add(ldelta);
 		this.add(mode);
-		this.add(add);
+		this.add(delta);
+		this.add(select);
+		this.add(start);
 	}
 	
 	@Override
-	public void ActionPerformed(ActionEvent ae){
+	public void actionPerformed(ActionEvent ae){
 		Object src = ae.getSource();
 		
-		if(src == start){
+		if(src == select){
 			//tutorial: http://www.rgagnon.com/javadetails/java-0370.html
 			
-			chooser = new JFileChooser(); 
+			JFileChooser chooser = new JFileChooser(); 
 			chooser.setCurrentDirectory(new java.io.File("."));
 			chooser.setDialogTitle("Speicherort Waehlen");
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -42,6 +76,12 @@ public class View extends JPanel implements ActionListener{
 			} else {
 				System.out.println("No Selection");
 			}
+		}else if(src == start){
+			System.out.println(mode.getSelectedItem());
 		}
+	}
+	
+	public static void main(String[] args){
+		new Frame(new View());
 	}
 }
