@@ -22,7 +22,7 @@ Die Aufgabenstellung soll in einer Zweiergruppe bearbeitet werden.
 ## Aufgabenstellung
 
 - Informieren Sie sich über die Möglichkeiten der Nutzung von GPUs in normalen Desktop-Anwendungen.  
-- Zeigen Sie dazu im Gegensatz den Vorteil der GPUs in rechenintensiven Implementierungen auf **[1Pkt]**.  
+  Zeigen Sie dazu im Gegensatz den Vorteil der GPUs in rechenintensiven Implementierungen auf **[1Pkt]**.  
 - Gibt es Entwicklungsumgebungen und in welchen Programmiersprachen kann man diese nutzen **[1Pkt]**?  
 - Können bestehende Programme (C/C++ und Java) auf GPUs genutzt werden und was sind dabei die Grundvoraussetzungen dafür **[1Pkt]**?  
 - Gibt es transcompiler und wie kommen diese zum Einsatz **[1Pkt]**?  
