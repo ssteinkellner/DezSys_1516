@@ -36,15 +36,22 @@ public class View extends JPanel implements ActionListener{
 		start.addActionListener(this);
 		
 		/* positionierung */
-		lruns.setBounds(10,10,100,25);
-		runs.setBounds(160,10,70,25);
-		
-		ldelta.setBounds(10,40,100,25);
-		mode.setBounds(120,40,40,24);
-		delta.setBounds(160,40,70,25);
+		{
+			int x1=10, x2=160;
+			int y1=10, y2=40, y3=70;
+			int w1=110, w2=70;
+			int h=25;
+			
+			lruns.setBounds(x1,y1,w1,h);
+			runs.setBounds(x2,y1,w2,h);
+			
+			ldelta.setBounds(x1,y2,w1,h);
+			mode.setBounds(x1+w1,y2,x2-x1-w1,h-1);
+			delta.setBounds(x2,y2,w2,h);
 
-		select.setBounds(10,70,150,25);
-		start.setBounds(160,70,70,25);
+			select.setBounds(x1,y3,150,h);
+			start.setBounds(x2,y3,w2,h);
+		}
 		
 		/* anzeigen */
 		this.setLayout(null);
