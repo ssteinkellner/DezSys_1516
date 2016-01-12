@@ -6,11 +6,12 @@ version: 2016.01.08
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns="http://www.w3.org/1999/xhtml">
 	
-	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+	<xsl:output method="html" indent="yes" encoding="UTF-8"/>
 	
 	<xsl:template match="/data">
 		<html>
 			<head>
+				<title>Statistik</title>
 				<link rel="Stylesheet" type="text/css" href="main.css"></link>
 				<script type="text/javascript" src="functions.js"></script>
 			</head>
