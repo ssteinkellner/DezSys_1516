@@ -33,9 +33,10 @@ public class View extends JPanel implements ActionListener {
         start = new JButton("Start");
         select = new JButton("Speicherort waehlen");
 
-		/* listener */
+        /* listener */
         select.addActionListener(this);
         start.addActionListener(this);
+        
         /* margins */
         {
             Insets i = new Insets(0, 0, 0, 0);
@@ -61,8 +62,8 @@ public class View extends JPanel implements ActionListener {
             start.setBounds(x3, y3, w3, h);
         }
         this.setPreferredSize(new Dimension(220, 105));
-		
-		/* anzeigen */
+        
+        /* anzeigen */
         this.setLayout(null);
         this.add(lruns);
         this.add(runs);

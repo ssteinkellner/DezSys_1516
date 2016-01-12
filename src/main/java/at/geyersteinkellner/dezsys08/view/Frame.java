@@ -32,5 +32,7 @@ public class Frame extends JFrame {
 
         this.view = view;
         this.add(view);
+
+        this.pack();
     }
 }
