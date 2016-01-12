@@ -18,15 +18,18 @@ import javax.swing.JPanel;
 public class View extends JPanel implements ActionListener {
     private JButton select, start;
     private JComboBox<Character> mode;
-    private NumberField runs, delta;
-    private JLabel ldelta, lruns;
+    private NumberField runs, delta, tasks;
+    private JLabel lruns, ldelta, ltasks;
 
     public View() {
         /* elemente erstellen */
         lruns = new JLabel("Runden");
         runs = new NumberField(10);
-
-        ldelta = new JLabel("Durchlaufanstieg");
+        
+        ltasks = new JLabel("Anzahl Aufgaben");
+        tasks = new NumberField(10);
+        
+        ldelta = new JLabel("Aufgabenanstieg");
         delta = new NumberField(10, true);
         mode = new JComboBox(new Character[]{'+', '*'});
 
@@ -47,31 +50,31 @@ public class View extends JPanel implements ActionListener {
         /* positionierung */
         {
             int x1 = 10, x2 = 120 , x3 = 160;
-            int y1 = 10, y2 = 40, y3 = 70;
+            int y1 = 10, y2 = 40, y3 = 70, y4 = 100;
             int w1 = 110, w2 = 40, w3 = 50;
             int h = 25;
-
+            
             lruns.setBounds(x1, y1, w1, h);
-            runs.setBounds(x3, y1, w3, h);
+            runs.setBounds (x3, y1, w3, h);
 
-            ldelta.setBounds(x1, y2, w1, h);
-            mode.setBounds(x2, y2, w2, h - 1);
-            delta.setBounds(x3, y2, w3, h);
+            ltasks.setBounds(x1, y2, w1, h);
+            tasks.setBounds (x3, y2, w3, h);
 
-            select.setBounds(x1, y3, w1 + w2, h);
-            start.setBounds(x3, y3, w3, h);
+            ldelta.setBounds(x1, y3, w1, h);
+            mode.setBounds(  x2, y3, w2, h - 1);
+            delta.setBounds( x3, y3, w3, h);
+
+            select.setBounds(x1, y4, w1 + w2, h);
+            start.setBounds( x3, y4, w3, h);
         }
-        this.setPreferredSize(new Dimension(220, 105));
+        this.setPreferredSize(new Dimension(220, 135));
         
         /* anzeigen */
         this.setLayout(null);
-        this.add(lruns);
-        this.add(runs);
-        this.add(ldelta);
-        this.add(mode);
-        this.add(delta);
-        this.add(select);
-        this.add(start);
+        this.add(lruns);  this.add(runs);
+        this.add(ltasks); this.add(tasks);
+        this.add(ldelta); this.add(mode); this.add(delta);
+        this.add(select); this.add(start);
     }
 
     public void actionPerformed(ActionEvent ae) {

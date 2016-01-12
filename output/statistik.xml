@@ -6,19 +6,19 @@ version: 2016.01.08
 -->
 <data>
 	<run>
-		<rounds>10</rounds>
+		<tasks>10</tasks>
 		<time>10</time>
 	</run>
 	<run>
-		<rounds>100</rounds>
+		<tasks>100</tasks>
 		<time>50</time>
 	</run>
 	<run>
-		<rounds>1000</rounds>
+		<tasks>1000</tasks>
 		<time>200</time>
 	</run>
 	<run>
-		<rounds>10000</rounds>
+		<tasks>10000</tasks>
 		<time>500</time>
 	</run>
 </data>

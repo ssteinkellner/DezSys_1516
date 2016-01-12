@@ -18,7 +18,7 @@ version: 2016.01.08
 			<body>
 				<table id="stat1" border="1">
 					<tr>
-						<th>Durchlaeufe</th>
+						<th>Aufgaben</th>
 						<th>Sekunden</th>
 					</tr>
 					<xsl:apply-templates select="run" />
@@ -33,7 +33,7 @@ version: 2016.01.08
 	
 	<xsl:template match="run">
 		<tr>
-			<td><xsl:value-of select="rounds"/></td>
+			<td><xsl:value-of select="tasks"/></td>
 			<td>
 				<div style="width: 0px;"><xsl:value-of select="time"/></div>
 			</td>
