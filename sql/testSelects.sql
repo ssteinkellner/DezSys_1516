@@ -1,3 +1,7 @@
+-- Autor: SSteinkellenr
+-- Datum: 2015-12-14
+-- Zweck: Datenbank fuer Aufgabe SOA und Rest
+
 INSERT INTO wissen VALUES
 ('So wird getestet','lol, hallo, abc','test1.php'),
 ('Ich bin hier nur am Testen','das, ist, aber, lustig','test2.php'),
