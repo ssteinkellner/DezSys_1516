@@ -13,8 +13,9 @@ public class Frame extends JFrame {
         this.setTitle("GPGPU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.setSize(250, 130);
         this.setLocation(100, 100);
+//        this.setSize(250, 130);
+        this.pack();
         this.setResizable(false);
 
         this.view = view;

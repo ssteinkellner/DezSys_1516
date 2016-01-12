@@ -1,8 +1,15 @@
 package at.geyersteinkellner.dezsys08.view;
 
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * @author ssteinkellner
@@ -29,24 +36,31 @@ public class View extends JPanel implements ActionListener {
 		/* listener */
         select.addActionListener(this);
         start.addActionListener(this);
-		
-		/* positionierung */
+        /* margins */
         {
-            int x1 = 10, x2 = 160;
+            Insets i = new Insets(0, 0, 0, 0);
+            start.setMargin(i);
+            select.setMargin(i);
+        }
+        
+        /* positionierung */
+        {
+            int x1 = 10, x2 = 120 , x3 = 160;
             int y1 = 10, y2 = 40, y3 = 70;
-            int w1 = 110, w2 = 70;
+            int w1 = 110, w2 = 40, w3 = 50;
             int h = 25;
 
             lruns.setBounds(x1, y1, w1, h);
-            runs.setBounds(x2, y1, w2, h);
+            runs.setBounds(x3, y1, w3, h);
 
             ldelta.setBounds(x1, y2, w1, h);
-            mode.setBounds(x1 + w1, y2, x2 - x1 - w1, h - 1);
-            delta.setBounds(x2, y2, w2, h);
+            mode.setBounds(x2, y2, w2, h - 1);
+            delta.setBounds(x3, y2, w3, h);
 
-            select.setBounds(x1, y3, 150, h);
-            start.setBounds(x2, y3, w2, h);
+            select.setBounds(x1, y3, w1 + w2, h);
+            start.setBounds(x3, y3, w3, h);
         }
+        this.setPreferredSize(new Dimension(210, 100));
 		
 		/* anzeigen */
         this.setLayout(null);
@@ -80,9 +94,5 @@ public class View extends JPanel implements ActionListener {
         } else if (src == start) {
             System.out.println(mode.getSelectedItem());
         }
-    }
-
-    public static void main(String[] args) {
-        new Frame(new View());
     }
 }
