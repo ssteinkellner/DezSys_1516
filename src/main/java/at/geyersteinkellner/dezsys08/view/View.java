@@ -60,7 +60,7 @@ public class View extends JPanel implements ActionListener {
             select.setBounds(x1, y3, w1 + w2, h);
             start.setBounds(x3, y3, w3, h);
         }
-        this.setPreferredSize(new Dimension(210, 100));
+        this.setPreferredSize(new Dimension(220, 105));
 		
 		/* anzeigen */
         this.setLayout(null);

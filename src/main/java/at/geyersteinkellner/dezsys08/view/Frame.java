@@ -1,6 +1,9 @@
 package at.geyersteinkellner.dezsys08.view;
 
-import javax.swing.*;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * @version 20160111
@@ -14,13 +17,14 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setLocation(100, 100);
-//        this.setSize(250, 130);
-        this.pack();
+        this.setMinimumSize(new Dimension(200,100));
         this.setResizable(false);
 
         this.view = view;
         this.add(view);
+        
         this.setVisible(true);
+        this.pack();
     }
 
     public void replaceView(JPanel view) {
