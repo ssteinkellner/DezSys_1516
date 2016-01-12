@@ -1,5 +1,6 @@
 input, select, td, th { padding: 10px; }
 
+/* tabelle */
 table { border-collapse: collapse; }
 tr:not(:first-child):hover { background: #00FFFF; }
 
@@ -22,6 +23,7 @@ input[type=submit], input[type=button], select { width: 174px; }
 	visibility: hidden;
 }
 
+/* formulare */
 form {
 	position: fixed;
 	right: 0;
@@ -35,4 +37,31 @@ form {
 }
 form input {
 	display: block;
+}
+
+/* layout */
+body {
+	margin-top: 50px;
+}
+
+#header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background: #555555;
+}
+#header h1 {
+	padding: 0;
+	margin: 0 10px;
+	line-height: 50px;
+	color: #FFFFFF;
+}
+
+#footer{
+	position:fixed;
+	bottom:0;
+	right:0;
+	padding:5px;
 }

@@ -1,0 +1,1 @@
+<?php header('Location: https://de.wikipedia.org/wiki/Wikipedia'); ?>
