@@ -12,3 +12,11 @@ table tr div {
 }
 
 table { border-collapse: collapse; }
+
+//table.padded { width: 100%; }
+table.padded td { padding: 0 10px; }
+table.padded tr:not(:last-child) { border-bottom: 1px dotted black; }
+
+table.stat {
+	margin: 0 0 10px 0;
+}

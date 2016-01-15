@@ -5,20 +5,40 @@ autor: ssteinkellner
 version: 2016.01.08
 -->
 <data>
-	<run>
-		<tasks>10</tasks>
-		<time>10</time>
-	</run>
-	<run>
-		<tasks>100</tasks>
-		<time>50</time>
-	</run>
-	<run>
-		<tasks>1000</tasks>
-		<time>200</time>
-	</run>
-	<run>
-		<tasks>10000</tasks>
-		<time>500</time>
-	</run>
+	<system os="Windoof" lang="C" unit="CPU">
+		<run>
+			<tasks>10</tasks>
+			<time>10</time>
+		</run>
+		<run>
+			<tasks>100</tasks>
+			<time>50</time>
+		</run>
+		<run>
+			<tasks>1000</tasks>
+			<time>200</time>
+		</run>
+		<run>
+			<tasks>10000</tasks>
+			<time>500</time>
+		</run>
+	</system>
+	<system os="Windoof" lang="C" unit="GPU">
+		<run>
+			<tasks>10</tasks>
+			<time>2</time>
+		</run>
+		<run>
+			<tasks>100</tasks>
+			<time>20</time>
+		</run>
+		<run>
+			<tasks>1000</tasks>
+			<time>50</time>
+		</run>
+		<run>
+			<tasks>10000</tasks>
+			<time>100</time>
+		</run>
+	</system>
 </data>

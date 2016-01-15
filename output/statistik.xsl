@@ -12,23 +12,51 @@ version: 2016.01.08
 		<html>
 			<head>
 				<title>Statistik</title>
-				<link rel="Stylesheet" type="text/css" href="main.css"></link>
+				<link rel="Stylesheet" type="text/css" href="main.css" />
+				<link rel="Stylesheet" type="text/css" href="layout.css" />
 				<script type="text/javascript" src="functions.js"></script>
 			</head>
 			<body>
-				<table id="stat1" border="1">
-					<tr>
-						<th>Aufgaben</th>
-						<th>Sekunden</th>
-					</tr>
-					<xsl:apply-templates select="run" />
-				</table>
+				<div id="header">
+					<h1>GPGPU Statistik</h1>
+				</div>
+				
+				<xsl:apply-templates select="system" />
 
 				<script type="text/javascript">setTimeout(function(){startStatistikAnimation('stat1');},300);</script>
 				
-				<span style="position: fixed; bottom: 0; right: 0; padding: 5px;">created by Sebastian Steinkellner</span>
+				<span id="footer">created by Sebastian Steinkellner</span>
 			</body>
 		</html>
+	</xsl:template>
+	
+	<xsl:template match="system">
+		<table class="stat" border="1">
+			<tr>
+				<th>System</th>
+				<td>
+					<table class="padded">
+						<tr>
+							<td>Betriebssystem</td>
+							<td><xsl:value-of select="@os"/></td>
+						</tr>
+						<tr>
+							<td>Programmiersprache</td>
+							<td><xsl:value-of select="@lang"/></td>
+						</tr>
+						<tr>
+							<td>Processing Unit</td>
+							<td><xsl:value-of select="@unit"/></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<th>Aufgaben</th>
+				<th>Sekunden</th>
+			</tr>
+			<xsl:apply-templates select="run" />
+		</table>
 	</xsl:template>
 	
 	<xsl:template match="run">
