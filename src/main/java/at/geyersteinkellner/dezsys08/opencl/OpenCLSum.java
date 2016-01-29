@@ -15,6 +15,8 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.system.MemoryUtil.memDecodeUTF8;
 
 public class OpenCLSum {
+	public static final int GPU = CL_DEVICE_TYPE_GPU, CPU = CL_DEVICE_TYPE_CPU;
+	
     // The OpenCL kernel
     static final String source =
             "kernel void sum(global const float *a, global const float *b, global float *answer) { "
@@ -31,12 +33,16 @@ public class OpenCLSum {
     };
 
     public static void main(String[] args) throws Exception {
-
-    	int durchlaeufe = 10000;
+    	run(CL_DEVICE_TYPE_GPU,10000,10000);
+    }
+    
+    public static void run(int device, int durchlaeufe, int length) throws Exception {
+/*
+    	int durchlaeufe = 10;
     	int device = CL_DEVICE_TYPE_GPU; // GPU | CPU
     	
-    	int length = 10000;
-    	
+    	int length = 100;
+*/
     	float[] temp = new float[length];
     	for(int i=0;i<temp.length;i++) temp[i] = i;
     	FloatBuffer a = toFloatBuffer(temp);

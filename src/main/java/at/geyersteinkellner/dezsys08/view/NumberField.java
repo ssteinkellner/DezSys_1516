@@ -31,6 +31,10 @@ public class NumberField extends JTextField implements KeyListener {
         this(allowNegative);
         this.setText("" + Default);
     }
+    
+    public int getNumber(){
+    	return Integer.parseInt(this.getText());
+    }
 
     /**
      * laesst nur zahlen zu. dadurch wird das textfeld zu einem reinen zahlenfeld

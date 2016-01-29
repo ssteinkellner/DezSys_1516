@@ -11,6 +11,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import at.geyersteinkellner.dezsys08.opencl.OpenCLSum;
+
 /**
  * @author ssteinkellner
  * @version 20160110
@@ -18,8 +20,9 @@ import javax.swing.JPanel;
 public class View extends JPanel implements ActionListener {
     private JButton select, start;
     private JComboBox<Character> mode;
+    private JComboBox<String> unit;
     private NumberField runs, delta, tasks;
-    private JLabel lruns, ldelta, ltasks;
+    private JLabel lruns, ldelta, ltasks, lunit;
 
     public View() {
         /* elemente erstellen */
@@ -31,7 +34,10 @@ public class View extends JPanel implements ActionListener {
         
         ldelta = new JLabel("Aufgabenanstieg");
         delta = new NumberField(10, true);
-        mode = new JComboBox(new Character[]{'+', '*'});
+        mode = new JComboBox<Character>(new Character[]{'+', '*'});
+        
+        lunit = new JLabel("Processing Unit");
+        unit = new JComboBox<String>(new String[]{"CPU","GPU"});
 
         start = new JButton("Start");
         select = new JButton("Speicherort waehlen");
@@ -48,29 +54,36 @@ public class View extends JPanel implements ActionListener {
         }
         
         /* positionierung */
+        int y = 10, h = 25;
         {
             int x1 = 10, x2 = 120 , x3 = 160;
-            int y1 = 10, y2 = 40, y3 = 70, y4 = 100;
             int w1 = 110, w2 = 40, w3 = 50;
-            int h = 25;
-            
-            lruns.setBounds(x1, y1, w1, h);
-            runs.setBounds (x3, y1, w3, h);
 
-            ltasks.setBounds(x1, y2, w1, h);
-            tasks.setBounds (x3, y2, w3, h);
+            lunit.setBounds(x1, y, w1, h);
+            unit.setBounds( x3, y, w3, h - 1);
 
-            ldelta.setBounds(x1, y3, w1, h);
-            mode.setBounds(  x2, y3, w2, h - 1);
-            delta.setBounds( x3, y3, w3, h);
+            y += h + 5;
+            lruns.setBounds(x1, y, w1, h);
+            runs.setBounds (x3, y, w3, h);
 
-            select.setBounds(x1, y4, w1 + w2, h);
-            start.setBounds( x3, y4, w3, h);
+            y += h + 5;
+            ltasks.setBounds(x1, y, w1, h);
+            tasks.setBounds (x3, y, w3, h);
+
+            y += h + 5;
+            ldelta.setBounds(x1, y, w1, h);
+            mode.setBounds(  x2, y, w2, h - 1);
+            delta.setBounds( x3, y, w3, h);
+
+            y += h + 5;
+            select.setBounds(x1, y, w1 + w2, h);
+            start.setBounds( x3, y, w3, h);
         }
-        this.setPreferredSize(new Dimension(220, 135));
+        this.setPreferredSize(new Dimension(220, y + h + 10));
         
         /* anzeigen */
         this.setLayout(null);
+        this.add(lunit);  this.add(unit);
         this.add(lruns);  this.add(runs);
         this.add(ltasks); this.add(tasks);
         this.add(ldelta); this.add(mode); this.add(delta);
@@ -97,6 +110,17 @@ public class View extends JPanel implements ActionListener {
             }
         } else if (src == start) {
             System.out.println(mode.getSelectedItem());
+            int type = OpenCLSum.GPU;
+            if(unit.getSelectedItem() == "CPU"){
+            	type = OpenCLSum.CPU;
+            }
+
+            try {
+            	OpenCLSum.run(type, runs.getNumber(), tasks.getNumber());
+			} catch (Exception e) {
+				System.err.println("Problem with OpenCLSum: " + e);
+//				e.printStackTrace();
+			}
         }
     }
 }
