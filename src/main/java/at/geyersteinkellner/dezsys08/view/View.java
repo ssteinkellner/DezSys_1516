@@ -57,7 +57,7 @@ public class View extends JPanel implements ActionListener {
         int y = 10, h = 25;
         {
             int x1 = 10, x2 = 120 , x3 = 160;
-            int w1 = 110, w2 = 40, w3 = 50;
+            int w1 = 110, w2 = 40, w3 = 60;
 
             lunit.setBounds(x1, y, w1, h);
             unit.setBounds( x3, y, w3, h - 1);
@@ -79,7 +79,7 @@ public class View extends JPanel implements ActionListener {
             select.setBounds(x1, y, w1 + w2, h);
             start.setBounds( x3, y, w3, h);
         }
-        this.setPreferredSize(new Dimension(220, y + h + 10));
+        this.setPreferredSize(new Dimension(230, y + h + 10));
         
         /* anzeigen */
         this.setLayout(null);
@@ -110,13 +110,12 @@ public class View extends JPanel implements ActionListener {
             }
         } else if (src == start) {
             System.out.println(mode.getSelectedItem());
+            
             int type = OpenCLSum.GPU;
-            if(unit.getSelectedItem() == "CPU"){
-            	type = OpenCLSum.CPU;
-            }
+            if(unit.getSelectedItem() == "CPU") type = OpenCLSum.CPU;
 
             try {
-            	OpenCLSum.run(type, runs.getNumber(), tasks.getNumber());
+            	new OpenCLSum(type, runs.getNumber(), tasks.getNumber());
 			} catch (Exception e) {
 				System.err.println("Problem with OpenCLSum: " + e);
 //				e.printStackTrace();

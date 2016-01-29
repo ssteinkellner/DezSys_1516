@@ -17,14 +17,17 @@ import static org.lwjgl.system.MemoryUtil.memDecodeUTF8;
 public class OpenCLSum {
 	public static final int GPU = CL_DEVICE_TYPE_GPU, CPU = CL_DEVICE_TYPE_CPU;
 	
+	private FloatBuffer a, b, answer;
+	private CLDevice clDevice;
+	
     // The OpenCL kernel
-    static final String source =
+    private final String source =
             "kernel void sum(global const float *a, global const float *b, global float *answer) { "
                     + "  unsigned int xid = get_global_id(0); "
                     + "  answer[xid] = a[xid] + b[xid];"
                     + "}";
 
-    private static final CLContextCallback CREATE_CONTEXT_CALLBACK = new CLContextCallback() {
+    private final CLContextCallback CREATE_CONTEXT_CALLBACK = new CLContextCallback() {
         @Override
         public void invoke(long errinfo, long private_info, long cb, long user_data) {
             System.err.println("[LWJGL] cl_create_context_callback");
@@ -33,32 +36,15 @@ public class OpenCLSum {
     };
 
     public static void main(String[] args) throws Exception {
-    	run(CL_DEVICE_TYPE_GPU,10000,10000);
+    	new OpenCLSum(GPU,10000,10000);
     }
     
-    public static void run(int device, int durchlaeufe, int length) throws Exception {
-/*
-    	int durchlaeufe = 10;
-    	int device = CL_DEVICE_TYPE_GPU; // GPU | CPU
-    	
-    	int length = 100;
-*/
-    	float[] temp = new float[length];
-    	for(int i=0;i<temp.length;i++) temp[i] = i;
-    	FloatBuffer a = toFloatBuffer(temp);
-    	
-    	temp = new float[length];
-    	for(int i=0;i<temp.length;i++) temp[i] = temp.length - i;
-    	FloatBuffer b = toFloatBuffer(temp);
-    	
-    	FloatBuffer answer = BufferUtils.createFloatBuffer(a.capacity());
-
-        System.setProperty("org.lwjgl.opencl.explicitInit", "true");
-
+    public OpenCLSum(int device, long durchlaeufe, int bufferSize) throws Exception {
+    	System.setProperty("org.lwjgl.opencl.explicitInit", "true");
 
         // Initialize OpenCL and create a context and command queue
 //        CL.create();
-        System.out.println("CL created");
+//        System.out.println("CL created");
 
         CLPlatform platform = CLPlatform.getPlatforms().get(0);
         System.out.println("Platform created");
@@ -69,49 +55,55 @@ public class OpenCLSum {
 
 
         IntBuffer errcode_ret = BufferUtils.createIntBuffer(1);
-        System.out.println("ERRCODE created");
+        System.out.println("Errcode created");
 
 
         List<CLDevice> devices = platform.getDevices(device);
-        // long context = clCreateContext(platform, devices, null, null, null);
-        long context = clCreateContext(ctxProps, devices.get(0).address(), CREATE_CONTEXT_CALLBACK, NULL, errcode_ret);
-        System.out.println("CONTEXT created");
+        clDevice = devices.get(0);
+        long context = clCreateContext(ctxProps, clDevice.address(), CREATE_CONTEXT_CALLBACK, NULL, errcode_ret);
+        System.out.println("Context created");
 
 
         checkCLError(errcode_ret);
-        //CLCommandQueue queue = clCreateCommandQueue(context, devices.get(0), CL_QUEUE_PROFILING_ENABLE, null);
-        long queue = clCreateCommandQueue(context, devices.get(0).address(), CL_QUEUE_PROFILING_ENABLE, errcode_ret);
-        System.out.println("Command Q created");
+        long queue = clCreateCommandQueue(context, clDevice.address(), CL_QUEUE_PROFILING_ENABLE, errcode_ret);
+        System.out.println("CommandQueue created");
 
-        // Allocate memory for our two input buffers and our result buffer
+        
+        /* create Buffers */
+    	float[] temp = new float[bufferSize];
+    	for(int i=0;i<temp.length;i++) temp[i] = i;
+    	a = toFloatBuffer(temp);
+    	
+    	temp = new float[bufferSize];
+    	for(int i=0;i<temp.length;i++) temp[i] = temp.length - i;
+    	b = toFloatBuffer(temp);
+    	
+    	answer = BufferUtils.createFloatBuffer(a.capacity());
+        
+        /* Allocate memory for our two input buffers and our result buffer */
         long aMem = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, a, null);
-        //long buffer = clCreateBuffer(context, CL_MEM_READ_ONLY, 128, errcode_ret);
-        System.out.println("A Buffer created");
-        clEnqueueWriteBuffer(queue, aMem, 1, 0, a, null, null);
         long bMem = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, b, null);
-        System.out.println("B Buffer created");
-        clEnqueueWriteBuffer(queue, bMem, 1, 0, b, null, null);
         long answerMem = clCreateBuffer(context, CL_MEM_WRITE_ONLY | CL_MEM_COPY_HOST_PTR, answer, null);
-        System.out.println("OUTPUT Buffer created");
+        System.out.println("Buffers A, B and Answer created");
+        
+        clEnqueueWriteBuffer(queue, aMem, 1, 0, a, null, null);
+        clEnqueueWriteBuffer(queue, bMem, 1, 0, b, null, null);
         clFinish(queue);
 
         // Create our program and kernel
         long program = clCreateProgramWithSource(context, source, null);
-        System.out.println("PROGRAM created");
-
-        //public static int clBuildProgram(long program, long device, CharSequence options, CLProgramCallback pfn_notify, long user_data) {
+        System.out.println("Program created");
 
 
-        CLUtil.checkCLError(clBuildProgram(program, devices.get(0).address(), "", null, 0L));
+        CLUtil.checkCLError(clBuildProgram(program, clDevice.address(), "", null, 0L));
         // sum has to match a kernel method name in the OpenCL source
         long kernel = clCreateKernel(program, "sum", null);
-        System.out.println("KERNEL created");
+        System.out.println("Kernel created");
 
         // Execution our kernel
         PointerBuffer kernel1DGlobalWorkSize = BufferUtils.createPointerBuffer(1);
-        System.out.println("KERNEL work size created");
         kernel1DGlobalWorkSize.put(0, a.capacity());
-        System.out.println("KERNEL work size copied");
+        System.out.println("Kernel work size created and copied");
 
         clSetKernelArg1p(kernel, 0, aMem);
         clSetKernelArg1p(kernel, 1, bMem);
@@ -120,20 +112,18 @@ public class OpenCLSum {
         System.out.println("Args send to kernel");
 
         clEnqueueNDRangeKernel(queue, kernel, 1, null, kernel1DGlobalWorkSize, null, null, null);
-        System.out.println("KERNEL queued created");
-
+        System.out.println("Kernel queued");
+        
         long before = System.nanoTime();
         
         // Read the results memory back into our result buffer
-        for(int i=0;i<durchlaeufe;i++){
+        for(long i=0;i<durchlaeufe;i++){
             clEnqueueReadBuffer(queue, answerMem, 1, 0, answer, null, null);
         }
         System.out.println("and output ... created");
         
        	long time = System.nanoTime() - before;
 
-        clFinish(queue);
-        
 //        System.out.println(convert(a) + "\n+\n" + convert(b) + "\n=\n" + convert(answer));
         System.out.println("Average: " + time/durchlaeufe + " nanoSeconds!");
 
@@ -147,8 +137,7 @@ public class OpenCLSum {
         clReleaseContext(context);
         CL.destroy();
     }
-
-
+    
     /**
      * Utility method to convert float array to float buffer
      *
