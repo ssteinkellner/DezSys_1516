@@ -1,18 +1,18 @@
 package at.geyersteinkellner.dezsys08.opencl;
 
 
-import org.lwjgl.BufferUtils;
-import org.lwjgl.PointerBuffer;
-import org.lwjgl.opencl.*;
+import static org.lwjgl.opencl.CL10.*;
+import static org.lwjgl.opencl.CLUtil.checkCLError;
+import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.system.MemoryUtil.memDecodeUTF8;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.List;
 
-import static org.lwjgl.opencl.CL10.*;
-import static org.lwjgl.opencl.CLUtil.checkCLError;
-import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.system.MemoryUtil.memDecodeUTF8;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.PointerBuffer;
+import org.lwjgl.opencl.*;
 
 public class OpenCLSum {
 	public static final int GPU = CL_DEVICE_TYPE_GPU, CPU = CL_DEVICE_TYPE_CPU;
@@ -21,7 +21,7 @@ public class OpenCLSum {
 	private CLDevice clDevice;
 	
     // The OpenCL kernel
-    private final String source =
+   private final String source =
             "kernel void sum(global const float *a, global const float *b, global float *answer) { "
                     + "  unsigned int xid = get_global_id(0); "
                     + "  answer[xid] = a[xid] + b[xid];"
