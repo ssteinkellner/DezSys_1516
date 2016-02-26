@@ -7,5 +7,11 @@ package ak_ss.balancer;
  *
  */
 public class LeastConnection implements Algorithm {
+
+	@Override
+	public Node getNext() {
+		
+		return null;
+	}
 	
 }

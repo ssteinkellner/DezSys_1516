@@ -7,5 +7,5 @@ package ak_ss.balancer;
  *
  */
 public interface Algorithm {
-	
+	public Node getNext();
 }
