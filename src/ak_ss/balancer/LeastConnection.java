@@ -1,5 +1,7 @@
 package ak_ss.balancer;
 
+import java.util.List;
+
 /**
  * 
  * @author SSteinkellner, Akoelbl
@@ -8,6 +10,11 @@ package ak_ss.balancer;
  */
 public class LeastConnection implements Algorithm {
 
+	
+	public LeastConnection(List nodes){
+		
+	}
+	
 	@Override
 	public Node getNext() {
 		
