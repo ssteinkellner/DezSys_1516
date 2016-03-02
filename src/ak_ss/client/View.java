@@ -53,10 +53,12 @@ public class View extends JFrame {
 	
 	public void update(){
 		int state = m.getState();
+		
 		host.setEnabled(state == Model.CONNECT);
 		input.setEnabled(state == Model.SEND);
+		
 		go.setText((state == Model.CONNECT)?"Verbinden":"Senden");
-		go.setActionCommand((state == Model.CONNECT)?"go":"send");
+		go.setActionCommand((state == Model.CONNECT)?Model.CMD_CONNECT:Model.CMD_SEND);
 		
 		msg.setText(m.getLastMsg());
 	}
