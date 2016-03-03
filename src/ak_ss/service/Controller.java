@@ -21,7 +21,7 @@ public class Controller {
 	}
 	
 	public Controller(int port){
-		this("localhost",port);
+		this("localhost", port);
 	}
 	
 	public Controller(String balancer){
@@ -29,7 +29,7 @@ public class Controller {
 	}
 	
 	public Controller(String balancer, int port){
-		Service s = new PiService();
+		Task t = new Task();
 		
 		try {
 			sm = new StreamManager(new Socket(balancer,port));
@@ -37,7 +37,7 @@ public class Controller {
 			
 			String msg;
 			while((msg = sm.read()) != null){
-				sm.write(s.serve(msg));
+				sm.write(t.pi(msg));
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();

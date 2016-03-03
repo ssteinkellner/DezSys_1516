@@ -5,12 +5,11 @@ package ak_ss.service;
  */
 public class PiService implements Service {
     public String serve(String command){
-        String[] teile = command.split(";");
-        int genauigkeit = Integer.parseInt(teile[1]);
+        int tropfenanzahl = Integer.parseInt(command);
 
         double pi = 0;
         int innerhalb = 0;
-        int gesamt = genauigkeit;
+        int gesamt = tropfenanzahl;
 
         while (gesamt > 0) { // generiere Tropfen und addiere je nach Zugehörigkeit
             double dotx = Math.random();
@@ -26,7 +25,7 @@ public class PiService implements Service {
             gesamt--;
         }
 
-        pi = 4*(double)innerhalb/genauigkeit;
-        return teile[0] + ";" + pi;
+        pi = 4*(double)innerhalb/tropfenanzahl;
+        return ""+pi;
     }
 }
