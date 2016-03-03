@@ -29,7 +29,7 @@ public class Controller {
 	public Controller(int port){
 /*		algorithm = new AlgorithmFactory.loadAlgorithm(name, nodes);
 		if(algorithm == null){
-			System.err.println("selected Algorithm not available!");
+			System.err.println("specified Algorithm not available!");
 			return;
 		}*/
 		
@@ -50,8 +50,6 @@ public class Controller {
 				n.addTask(new Task("test2"));
 				System.out.println(n);
 			}
-			
-			server.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
