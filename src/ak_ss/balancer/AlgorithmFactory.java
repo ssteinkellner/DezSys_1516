@@ -2,6 +2,9 @@ package ak_ss.balancer;
 
 import java.util.List;
 
+import ak_ss.balancer.algorithms.LeastConnection;
+import ak_ss.balancer.algorithms.ResponseTime;
+
 public class AlgorithmFactory {
 	
 	public static Algorithm loadAlgorithm(String name, List nodes){

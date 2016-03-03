@@ -1,6 +1,9 @@
-package ak_ss.balancer;
+package ak_ss.balancer.algorithms;
 
 import java.util.List;
+
+import ak_ss.balancer.Algorithm;
+import ak_ss.balancer.Node;
 
 /**
  * 
