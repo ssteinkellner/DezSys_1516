@@ -52,7 +52,15 @@ public class Controller implements ActionListener {
 			m.setLastMsg("Bitte warten");
 			v.update();
 			
-			m.setLastMsg("Ergebnis: " + sm.read());
+			String msg = sm.read();
+			if(msg == null){
+				m.setLastMsg("Connection Lost!");
+			}else if(msg.toLowerCase().contains("exception")){
+				m.setLastMsg("Server Error");
+				System.err.println("[Server Error] " + msg);
+			}else{
+				m.setLastMsg("Ergebnis: " + msg);
+			}
 			v.update();
 		}
 	}

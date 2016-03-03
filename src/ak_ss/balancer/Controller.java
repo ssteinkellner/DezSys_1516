@@ -66,15 +66,17 @@ public class Controller {
 				StreamManager sm = new StreamManager(cserver.accept());
 				System.out.println("New Client on " + sm.getSocket());
 				
-				Node n = algorithm.getNext();
 				new Thread(() -> {
 					while(sm.isOpen()){
-						Task t = new Task(sm.read());
+						String cmd = sm.read();
+						if(cmd != null){
+							Task t = new Task(cmd);
 
-						t.onFinish(() -> {
-							sm.write(t.getResult());
-						});
-						n.addTask(t);
+							t.onFinish(() -> {
+								sm.write(t.getResult());
+							});
+							algorithm.getNext().addTask(t);
+						}
 					}
 				}).start();
 			}
