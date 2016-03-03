@@ -1,7 +1,9 @@
 package ak_ss.balancer;
 
 import java.net.Socket;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -23,11 +25,14 @@ public class Node {
 		tasks.put(task.getSessId(), task);
 	}
 	
+	public Collection<Task> getTasks(){
+		return tasks.values();
+	}
+	
 	@Override
 	public String toString() {
 		Controller.stop();
 		return "Node[conn=" + conn + ",tasks=" + tasks + "]";
 	}
-	
 	
 }

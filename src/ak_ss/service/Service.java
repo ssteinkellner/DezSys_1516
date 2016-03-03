@@ -7,5 +7,5 @@ package ak_ss.service;
  *
  */
 public interface Service {
-	
+	public String serve(String command);
 }
