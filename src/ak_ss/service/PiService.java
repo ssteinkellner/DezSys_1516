@@ -1,28 +1,32 @@
 package ak_ss.service;
 
+import java.io.IOException;
+
 /**
  * Created by Alex on 03.03.2016.
  */
 public class PiService implements Service {
     public String serve(String command){
-        int tropfenanzahl = Integer.parseInt(command);
+    	int tropfenanzahl;
+    	
+    	try{
+            tropfenanzahl = Integer.parseInt(command);
+    	}catch(NumberFormatException nfe){
+    		return "" + nfe;
+    	}
 
-        double pi = 0;
+        double pi = 0, dotx, doty;
         int innerhalb = 0;
-        int gesamt = tropfenanzahl;
+        String msg;
+        
+        for(int gesamt = tropfenanzahl; gesamt > 0; gesamt--){ // generiere Tropfen und addiere je nach Zugehörigkeit
+            dotx = Math.random();
+            doty = Math.random();
 
-        while (gesamt > 0) { // generiere Tropfen und addiere je nach Zugehörigkeit
-            double dotx = Math.random();
-            double doty = Math.random();
+            if (dotx*dotx + doty*doty <= 1) innerhalb++; // Punkt liegt innerhalb des Kreises
+            // else Punkt liegt außerhalb des Kreises
 
-            if (dotx*dotx + doty*doty <= 1) {
-                // Punkt liegt innerhalb des Kreises
-                innerhalb++;
-            } else {
-                // Punkt liegt außerhalb des Kreises
-            }
-
-            gesamt--;
+            if(gesamt % 10000000 == 0) System.out.print("Nur noch " + gesamt + " Durchlaeufe!\r");
         }
 
         pi = 4*(double)innerhalb/tropfenanzahl;
