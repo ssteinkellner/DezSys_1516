@@ -42,7 +42,7 @@ public class Node implements Runnable{
 		while((msg = sm.read()) != null){
 			int sessId = 1;
 			if(tasks.containsKey(sessId)){
-				
+				tasks.get(sessId).setState(Task.FINISHED);
 			}
 		}
 	}

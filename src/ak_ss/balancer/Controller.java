@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
-import java.util.TreeMap;
 
 import ak_ss.common.Default;
 import ak_ss.common.StreamManager;
@@ -18,7 +17,6 @@ import ak_ss.common.Tools;
  */
 public class Controller {
 	private ServerSocket cserver, nserver;
-	private TreeMap<Integer, Socket> clients;
 	private LinkedList<Node> nodes;
 	private Algorithm algorithm;
 	
@@ -39,8 +37,7 @@ public class Controller {
 			return;
 		}
 		
-		clients = new TreeMap();
-		nodes   = new LinkedList();
+		nodes = new LinkedList<Node>();
 
 		running = true;
 		try {
@@ -61,13 +58,12 @@ public class Controller {
 			cserver = new ServerSocket(port);
 			
 			while(running){
-				Socket connection = cserver.accept();
+				StreamManager sm = new StreamManager(cserver.accept());
 				
 				Node n = algorithm.getNext();
-				Task t = new Task(new StreamManager(connection).read());
-				
-				clients.put(t.getSessId(), connection);
-				
+				Task t = new Task(sm.read());
+
+				t.onFinish(() -> { sm.write(t.getResult()); });
 				n.addTask(t);
 			}
 			

@@ -14,6 +14,7 @@ public class Task {
 	private int sessId, state;
 	private String cmd, result;
 	private long startTime, endTime;
+	private Callback finish;
 	
 	public Task(String command){
 		cmd = command;
@@ -21,8 +22,23 @@ public class Task {
 		startTime = System.nanoTime();
 	}
 	
+	public void onFinish(Callback callback){
+		finish = callback;
+	}
+
 	public int getSessId() {
 		return sessId;
+	}
+	
+	public void setState(int state) {
+		if(state < 0 || state > 2) return;
+		
+		this.state = state;
+		
+		if(state == FINISHED){
+			endTime = System.nanoTime();
+			if(finish != null) finish.call();
+		}
 	}
 
 	public int getState() {
@@ -31,6 +47,14 @@ public class Task {
 
 	public String getCmd() {
 		return cmd;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 	public long getRunTime() {
