@@ -6,6 +6,7 @@ import ak_ss.balancer.algorithms.LeastConnection;
 import ak_ss.balancer.algorithms.ResponseTime;
 
 public class AlgorithmFactory {
+	public static final String DEFAULT = "leastconnection";
 	
 	public static Algorithm loadAlgorithm(String name, List nodes){
 		name = name.toLowerCase();

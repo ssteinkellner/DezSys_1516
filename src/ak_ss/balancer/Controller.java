@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 import ak_ss.common.Default;
+import ak_ss.common.StreamManager;
 import ak_ss.common.Tools;
 
 /**
@@ -15,8 +17,8 @@ import ak_ss.common.Tools;
  *
  */
 public class Controller {
-	private ServerSocket server;
-	private LinkedList<Socket> clients;
+	private ServerSocket cserver, nserver;
+	private TreeMap<Integer, Socket> clients;
 	private LinkedList<Node> nodes;
 	private Algorithm algorithm;
 	
@@ -27,31 +29,55 @@ public class Controller {
 	}
 	
 	public Controller(int port){
-/*		algorithm = new AlgorithmFactory.loadAlgorithm(name, nodes);
+		this(port, AlgorithmFactory.DEFAULT);
+	}
+	
+	public Controller(int port, String algName){
+		algorithm = AlgorithmFactory.loadAlgorithm(algName, nodes);
 		if(algorithm == null){
 			System.err.println("selected Algorithm not available!");
 			return;
-		}*/
+		}
 		
-		clients = new LinkedList();
+		clients = new TreeMap();
 		nodes   = new LinkedList();
+
+		running = true;
+		try {
+			nserver = new ServerSocket(port+1);
+			
+			while(running){
+				Socket connection = nserver.accept();
+				Node n = new Node(connection);
+				
+				nodes.add(n);
+				new Thread(n).start();
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 		
 		try {
-			server = new ServerSocket(port);
+			cserver = new ServerSocket(port);
 			
-			running = true;
 			while(running){
-				Socket connection = server.accept();
+				Socket connection = cserver.accept();
 				
-				// Node n = algorithm.getNext();
+				Node n = algorithm.getNext();
+				Task t = new Task(new StreamManager(connection).read());
 				
-				Node n = new Node(connection);
-				n.addTask(new Task("test1"));
-				n.addTask(new Task("test2"));
-				System.out.println(n);
+				clients.put(t.getSessId(), connection);
+				
+				n.addTask(t);
 			}
 			
-			server.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		try{
+			nserver.close();
+			cserver.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -90,6 +116,6 @@ public class Controller {
 	}
 	
 	public static void printUsage(){
-		System.out.println("Usage: balanancer [<port>]");
+		System.out.println("Usage: balanancer [<port> [<algorithm>]]");
 	}
 }
