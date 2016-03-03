@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
+import ak_ss.common.Default;
+import ak_ss.common.Tools;
+
 /**
  * 
  * @author SSteinkellner, Akoelbl
@@ -20,7 +23,7 @@ public class Controller {
 	private static boolean running;
 	
 	public Controller(){
-		this(1204);
+		this(Default.PORT);
 	}
 	
 	public Controller(int port){
@@ -43,10 +46,12 @@ public class Controller {
 				// Node n = algorithm.getNext();
 				
 				Node n = new Node(connection);
-				n.addTask(new Task("test2"));
+				n.addTask(new Task("test1"));
 				n.addTask(new Task("test2"));
 				System.out.println(n);
 			}
+			
+			server.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -72,11 +77,12 @@ public class Controller {
 				return;
 			}
 
-			try{
-				new Controller(Integer.parseInt(args[0]));
+			int port = Tools.isPort(args[0]);
+			if(port == Tools.NOT_PORT){
+				System.err.println("invalid portnumber!");
+			}else if(port != Tools.NOT_NUMERIC){
+				new Controller(port);
 				return;
-			}catch(NumberFormatException nfe){
-				System.out.println("caught: " + nfe);
 			}
 		}
 		

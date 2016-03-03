@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
+import ak_ss.common.Default;
+import ak_ss.common.Tools;
+
 /**
  * 
  * @author SSteinkellner, Akoelbl
@@ -17,11 +20,11 @@ public class Controller implements ActionListener {
 	private Socket conn;
 	
 	public Controller(){
-		this("localhost");
+		this(Default.HOST);
 	}
 	
 	public Controller(String host){
-		this(host, 1204);
+		this(host, Default.PORT);
 	}
 	
 	public Controller(String host, int port){
@@ -64,11 +67,12 @@ public class Controller implements ActionListener {
 		}
 		
 		if(args.length == 2){
-			try{
+			int port = Tools.isPort(args[1]);
+			if(port == Tools.NOT_PORT){
+				System.err.println("invalid portnumber!");
+			}else if(port != Tools.NOT_NUMERIC){
 				new Controller(args[0], Integer.parseInt(args[1]));
 				return;
-			}catch(NumberFormatException nfe){
-				System.out.println("caught: " + nfe);
 			}
 		}
 		
