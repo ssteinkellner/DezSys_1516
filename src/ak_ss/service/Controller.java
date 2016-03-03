@@ -17,15 +17,15 @@ public class Controller {
 	private StreamManager sm;
 
 	public Controller(){
-		this(Default.PORT);
+		this(Default.PORT+1);
 	}
 	
 	public Controller(int port){
-		System.out.println(port);
+		this("localhost",port);
 	}
 	
 	public Controller(String balancer){
-		this(balancer,Default.PORT);
+		this(balancer,Default.PORT+1);
 	}
 	
 	public Controller(String balancer, int port){

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import ak_ss.common.Default;
 import ak_ss.common.StreamManager;
@@ -49,7 +48,11 @@ public class Controller implements ActionListener {
 			v.update();
 		}else if(cmd.equals(Model.CMD_SEND)){
 			sm.write(v.getCommand());
-			m.setLastMsg(sm.read());
+			
+			m.setLastMsg("Bitte warten");
+			v.update();
+			
+			m.setLastMsg("Ergebnis: " + sm.read());
 			v.update();
 		}
 	}

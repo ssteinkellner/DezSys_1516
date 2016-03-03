@@ -47,7 +47,7 @@ public class Controller {
 				
 				while(running){
 					Socket connection = nserver.accept();
-					System.out.println("New Connection on " + connection);
+					System.out.println("New Service on " + connection);
 					Node n = new Node(connection);
 					
 					nodes.add(n);
@@ -64,13 +64,19 @@ public class Controller {
 			
 			while(running){
 				StreamManager sm = new StreamManager(cserver.accept());
-				System.out.println("New Connection on " + sm.getSocket());
+				System.out.println("New Client on " + sm.getSocket());
 				
 				Node n = algorithm.getNext();
-				Task t = new Task(sm.read());
+				new Thread(() -> {
+					while(sm.isOpen()){
+						Task t = new Task(sm.read());
 
-				t.onFinish(() -> { sm.write(t.getResult()); });
-				n.addTask(t);
+						t.onFinish(() -> {
+							sm.write(t.getResult());
+						});
+						n.addTask(t);
+					}
+				}).start();
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
