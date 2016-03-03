@@ -23,7 +23,7 @@ public class Node implements Runnable{
 	
 	public void addTask(Task task){
 		tasks.put(task.getSessId(), task);
-		sm.write(task.getCmd());
+		sm.write(task.getSessId() + ";" + task.getCmd());
 	}
 	
 	public Collection<Task> getTasks(){
@@ -40,9 +40,12 @@ public class Node implements Runnable{
 		String msg = "";
 		
 		while((msg = sm.read()) != null){
-			int sessId = 1;
+			String[] teile = msg.split(";");
+			int sessId = Integer.parseInt(teile[0]);
 			if(tasks.containsKey(sessId)){
-				tasks.get(sessId).setState(Task.FINISHED);
+				Task t = tasks.get(sessId);
+				t.setResult(teile[1]);
+				t.setState(Task.FINISHED);
 			}
 		}
 	}

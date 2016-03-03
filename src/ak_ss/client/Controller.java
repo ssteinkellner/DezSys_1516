@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import ak_ss.common.Default;
+import ak_ss.common.StreamManager;
 import ak_ss.common.Tools;
 
 /**
@@ -17,7 +19,7 @@ import ak_ss.common.Tools;
 public class Controller implements ActionListener {
 	private Model m;
 	private View v;
-	private Socket conn;
+	private StreamManager sm;
 	
 	public Controller(){
 		this(Default.HOST);
@@ -39,13 +41,15 @@ public class Controller implements ActionListener {
 		if(cmd.equals(Model.CMD_CONNECT)){
 			m.setState(Model.SEND);
 			try {
-				conn = new Socket(m.getHost(),m.getPort());
+				sm = new StreamManager(new Socket(m.getHost(),m.getPort()));
+				m.setLastMsg("Connection successfull!");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
 			v.update();
 		}else if(cmd.equals(Model.CMD_SEND)){
-			m.setState(Model.CONNECT);
+			sm.write(v.getCommand());
+			m.setLastMsg(sm.read());
 			v.update();
 		}
 	}

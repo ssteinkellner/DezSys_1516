@@ -62,4 +62,8 @@ public class View extends JFrame {
 		
 		msg.setText(m.getLastMsg());
 	}
+	
+	public String getCommand(){
+		return input.getText();
+	}
 }

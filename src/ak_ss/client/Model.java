@@ -1,5 +1,7 @@
 package ak_ss.client;
 
+import ak_ss.common.Default;
+
 public class Model {
 	public static final int CONNECT = 0, SEND = 1;
 	public static final String CMD_CONNECT = "connect", CMD_SEND = "send";
@@ -7,7 +9,7 @@ public class Model {
 	private String host, lastMsg;
 	
 	public Model() {
-		this("localhost",1204);
+		this("localhost",Default.PORT);
 	}
 	
 	public Model(String host, int port){

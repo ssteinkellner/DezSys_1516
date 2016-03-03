@@ -31,34 +31,40 @@ public class Controller {
 	}
 	
 	public Controller(int port, String algName){
+		nodes = new LinkedList<Node>();
+		
 		algorithm = AlgorithmFactory.loadAlgorithm(algName, nodes);
 		if(algorithm == null){
 			System.err.println("selected Algorithm not available!");
 			return;
 		}
-		
-		nodes = new LinkedList<Node>();
 
 		running = true;
-		try {
-			nserver = new ServerSocket(port+1);
-			
-			while(running){
-				Socket connection = nserver.accept();
-				Node n = new Node(connection);
+		new Thread(() -> {
+			try {
+				nserver = new ServerSocket(port+1);
+				System.out.println("opened Socket for Nodes on " + (port+1));
 				
-				nodes.add(n);
-				new Thread(n).start();
+				while(running){
+					Socket connection = nserver.accept();
+					System.out.println("New Connection on " + connection);
+					Node n = new Node(connection);
+					
+					nodes.add(n);
+					new Thread(n).start();
+				}
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
+		}).start();
 		
 		try {
 			cserver = new ServerSocket(port);
+			System.out.println("opened Socket for Clients on " + (port));
 			
 			while(running){
 				StreamManager sm = new StreamManager(cserver.accept());
+				System.out.println("New Connection on " + sm.getSocket());
 				
 				Node n = algorithm.getNext();
 				Task t = new Task(sm.read());
@@ -66,7 +72,6 @@ public class Controller {
 				t.onFinish(() -> { sm.write(t.getResult()); });
 				n.addTask(t);
 			}
-			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}

@@ -1,8 +1,10 @@
 package ak_ss.service;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import ak_ss.common.Default;
+import ak_ss.common.StreamManager;
 import ak_ss.common.Tools;
 
 /**
@@ -12,7 +14,7 @@ import ak_ss.common.Tools;
  *
  */
 public class Controller {
-	private Socket conn;
+	private StreamManager sm;
 
 	public Controller(){
 		this(Default.PORT);
@@ -27,7 +29,19 @@ public class Controller {
 	}
 	
 	public Controller(String balancer, int port){
-		System.out.println(balancer + ":" + port);
+		Service s = new PiService();
+		
+		try {
+			sm = new StreamManager(new Socket(balancer,port));
+			System.out.println("Connection successfull!");
+			
+			String msg;
+			while((msg = sm.read()) != null){
+				sm.write(s.serve(msg));
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
