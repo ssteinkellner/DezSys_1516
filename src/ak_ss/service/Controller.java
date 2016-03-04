@@ -1,6 +1,7 @@
 package ak_ss.service;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import ak_ss.common.Default;
@@ -14,15 +15,18 @@ import ak_ss.common.Tools;
  *
  */
 public class Controller {
-	private StreamManager sm;
-
 	public Controller(){
-		this(Default.PORT+1);
+		this(Default.PORT);
 	}
 	
 	public Controller(int port){
-		System.err.println("Standalone Service not implemented!");
-		return;
+		try {
+			ServerSocket ss = new ServerSocket(port);
+			System.out.println("Standalone Service auf " + ss + " gestartet");
+			run(new StreamManager(ss.accept()));
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 	
 	public Controller(String balancer){
@@ -30,18 +34,22 @@ public class Controller {
 	}
 	
 	public Controller(String balancer, int port){
-		Task t = new Task();
-		
 		try {
-			sm = new StreamManager(new Socket(balancer,port));
-			System.out.println("Connection successfull!");
-			
-			String msg;
-			while((msg = sm.read()) != null){
-				sm.write(t.pi(msg));
-			}
+			Socket s = new Socket(balancer,port);
+			System.out.println("Service balanciert durch " + s);
+			run(new StreamManager(s));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+	}
+	
+	private void run(StreamManager sm){
+		Task t = new Task();
+		System.out.println("Connection successfull!");
+			
+		String msg;
+		while((msg = sm.read()) != null){
+			sm.write(t.pi(msg));
 		}
 	}
 	
