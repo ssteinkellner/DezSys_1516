@@ -2,6 +2,8 @@ package ak_ss.client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -32,7 +34,7 @@ public class Controller implements ActionListener {
 		m = new Model(host, port);
 		v = new View(m, this);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		String cmd = ae.getActionCommand().toLowerCase();
