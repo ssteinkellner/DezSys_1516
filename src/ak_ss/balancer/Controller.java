@@ -43,12 +43,16 @@ public class Controller {
 		new Thread(() -> {
 			try {
 				nserver = new ServerSocket(port+1);
-				System.out.println("opened Socket for Nodes on " + (port+1));
+				System.out.println("opened " + nserver + " for Nodes");
 				
 				while(running){
 					Socket connection = nserver.accept();
 					System.out.println("New Service on " + connection);
 					Node n = new Node(connection);
+					
+					n.onClose(() -> {
+						System.out.println(n + " closed");
+					});
 					
 					nodes.add(n);
 					new Thread(n).start();
@@ -60,7 +64,7 @@ public class Controller {
 		
 		try {
 			cserver = new ServerSocket(port);
-			System.out.println("opened Socket for Clients on " + (port));
+			System.out.println("opened " + cserver + " for Clients");
 			
 			while(running){
 				StreamManager sm = new StreamManager(cserver.accept());
@@ -74,8 +78,14 @@ public class Controller {
 
 							t.onFinish(() -> {
 								sm.write(t.getResult());
+								System.out.println(t + " finished");
 							});
 							algorithm.getNext().addTask(t);
+/*							try{
+								
+							}catch(NullPointerException npe){
+								sm.write("Service Unavailable " + npe);
+							}*/
 						}
 					}
 				}).start();
@@ -120,6 +130,17 @@ public class Controller {
 				return;
 			}
 		}
+		
+		if(args.length == 2){
+			int port = Tools.isPort(args[0]);
+			if(port == Tools.NOT_PORT){
+				System.err.println("invalid portnumber!");
+			}else if(port != Tools.NOT_NUMERIC){
+				new Controller(port, args[1]);
+				return;
+			}
+		}
+		
 		
 		printUsage();
 	}

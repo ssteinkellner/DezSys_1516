@@ -15,6 +15,7 @@ import ak_ss.common.StreamManager;
 public class Node implements Runnable{
 	private TreeMap<Integer, Task> tasks;
 	private StreamManager sm;
+	private Callback onclose;
 	
 	public Node(Socket connection){
 		sm = new StreamManager(connection);
@@ -28,6 +29,10 @@ public class Node implements Runnable{
 	
 	public Collection<Task> getTasks(){
 		return tasks.values();
+	}
+	
+	public void onClose(Callback callback){
+		onclose = callback;
 	}
 	
 	@Override
@@ -46,7 +51,10 @@ public class Node implements Runnable{
 				Task t = tasks.get(sessId);
 				t.setResult(teile[1]);
 				t.setState(Task.FINISHED);
+//				tasks.remove(t);
 			}
 		}
+		
+		if(onclose != null) onclose.call();
 	}
 }
