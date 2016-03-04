@@ -75,13 +75,18 @@ public class Controller {
 					while(sm.isOpen()){
 						String cmd = sm.read();
 						if(cmd != null){
-							Task t = new Task(cmd);
+							Node n = algorithm.getNext();
+							if(n == null){
+								sm.write("NoNodeException: Service Unavailable!");
+							}else{
+								Task t = new Task(cmd);
 
-							t.onFinish(() -> {
-								sm.write(t.getResult());
-								System.out.println(t + " finished");
-							});
-							algorithm.getNext().addTask(t);
+								t.onFinish(() -> {
+									sm.write(t.getResult());
+									System.out.println(t + " finished");
+								});
+								n.addTask(t);
+							}
 						}
 					}
 				}).start();

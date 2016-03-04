@@ -32,6 +32,8 @@ public class ResponseTime implements Algorithm, Runnable {
 			if(nodes.size()>0){
 				System.out.println("Checke Server");
 				calculateFastest();
+			}else{
+				fastest = null;
 			}
 			try {
 				Thread.sleep(10000);
