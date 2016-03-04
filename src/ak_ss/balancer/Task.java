@@ -17,7 +17,7 @@ public class Task {
 	private Callback finish;
 	
 	public Task(String command){
-		System.out.println("[DEBUG][Task]" + command);
+		System.out.println("[DEBUG][Task] " + command);
 		cmd = command;
 		sessId = (lastSessId ++);
 		startTime = System.nanoTime();
@@ -38,6 +38,7 @@ public class Task {
 		
 		if(state == FINISHED){
 			endTime = System.nanoTime();
+			System.out.println("[DEBUG][Task] Runtime: " + getRunTime());
 			if(finish != null) finish.call();
 		}
 	}

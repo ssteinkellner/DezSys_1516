@@ -29,7 +29,10 @@ public class ResponseTime implements Algorithm, Runnable {
 	public void run(){
 		lauf = true;
 		while (lauf) {
-			calculateFastest();
+			if(nodes.size()>0){
+				System.out.println("Checke Server");
+				calculateFastest();
+			}
 			try {
 				Thread.sleep(10000);
 			} catch (Exception e) {

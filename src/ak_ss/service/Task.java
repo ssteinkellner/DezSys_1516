@@ -14,7 +14,9 @@ public class Task {
     }
 	public String pi(String msg){
         String[] teile = msg.split(";");
-        System.out.println("Berechne "  + teile[1]);
-        return teile[0] + ";" + s.serve(teile[1]);
+        System.out.println("Berechne: "  + teile[1]);
+        String res = s.serve(teile[1]);
+        System.out.println("Ergebnis: " + res);
+        return teile[0] + ";" + res;
     }
 }

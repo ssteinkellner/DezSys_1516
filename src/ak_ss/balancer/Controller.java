@@ -52,6 +52,7 @@ public class Controller {
 					
 					n.onClose(() -> {
 						System.out.println(n + " closed");
+						nodes.remove(n);
 					});
 					
 					nodes.add(n);
@@ -81,11 +82,6 @@ public class Controller {
 								System.out.println(t + " finished");
 							});
 							algorithm.getNext().addTask(t);
-/*							try{
-								
-							}catch(NullPointerException npe){
-								sm.write("Service Unavailable " + npe);
-							}*/
 						}
 					}
 				}).start();

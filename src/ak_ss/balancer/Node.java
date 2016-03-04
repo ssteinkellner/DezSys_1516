@@ -51,7 +51,7 @@ public class Node implements Runnable{
 				Task t = tasks.get(sessId);
 				t.setResult(teile[1]);
 				t.setState(Task.FINISHED);
-//				tasks.remove(t);
+				tasks.remove(sessId);
 			}
 		}
 		
