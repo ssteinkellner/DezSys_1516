@@ -21,7 +21,8 @@ public class Controller {
 	}
 	
 	public Controller(int port){
-		this("localhost", port);
+		System.err.println("Standalone Service not implemented!");
+		return;
 	}
 	
 	public Controller(String balancer){
@@ -73,7 +74,7 @@ public class Controller {
 			if(port == Tools.NOT_PORT){
 				System.err.println("invalid portnumber!");
 			}else if(port != Tools.NOT_NUMERIC){
-				new Controller(args[0], Integer.parseInt(args[1]));
+				new Controller(args[0], port);
 				return;
 			}
 		}
