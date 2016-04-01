@@ -1,6 +1,5 @@
 package ak_ss.service;
 
-import java.io.IOException;
 
 /**
  * Created by Alex on 03.03.2016.
@@ -25,12 +24,11 @@ public class PiService implements Service {
             doty = Math.random();
 
             if (dotx*dotx + doty*doty <= 1) innerhalb++; // Punkt liegt innerhalb des Kreises
-            // else Punkt liegt außerhalb des Kreises
 
             if(gesamt % 10000000 == 0) System.out.print("#");
- //           if(gesamt % 10000000 == 0) System.out.print("Nur noch " + gesamt + " Durchlaeufe!\r");
+//            if(gesamt % 10000000 == 0) System.out.print("Nur noch " + gesamt + " Durchlaeufe!\r"); System.out.flush();
         }
-        if(tropfenanzahl >= log) System.out.println("]");
+        if(tropfenanzahl >= log) System.out.print("]");
 
         pi = 4*(double)innerhalb/tropfenanzahl;
         return ""+pi;
