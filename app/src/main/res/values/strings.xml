@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">WebServiceApp</string>
+    
+    
+    <string name="field_email">E-Mail Adresse</string>
+    <string name="field_username">Username</string>
+    <string name="field_password">Passwort</string>
+    
+    <string name="title_register">Registrierung</string>
+    <string name="title_login">Login</string>
+    
+    <string name="button_register">registrieren</string>
+    <string name="button_login">anmelden</string>
 </resources>
