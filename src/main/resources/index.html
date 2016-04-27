@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>WebService in Java</title>
+		<style type="text/css">
+			form {
+				float: left;
+				margin: 0 10px;
+				padding: 5px;
+				
+				border-radius: 5px;
+				border: 1px solid black;
+			}
+			
+			input {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>WebService in Java</h1>
+		
+		<form method="GET" action="./register">
+			<h3>Registrierung</h3>
+			<input type="text" name="username" placeholder="Username"></input>
+			<input type="text" name="email" placeholder="E-Mail Adresse"></input>
+			<input type="password" name="password" placeholder="Passwort"></input>
+			<input type="submit" value="registrieren"></input>
+		</form>
+		
+		<form method="GET" action="./login">
+			<h3>Login</h3>
+			<input type="text" name="email" placeholder="E-Mail Adresse"></input>
+			<input type="password" name="password" placeholder="Passwort"></input>
+			<input type="submit" value="anmelden"></input>
+		</form>
+		
+		<span style="position: fixed; bottom: 5px; right: 10px;">created by Sebastian Steinkellner</span>
+	</body>
+</html>

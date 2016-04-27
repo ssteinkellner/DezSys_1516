@@ -14,7 +14,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 public class User implements Serializable {
-	
 	@Id
     @Size(max = 100)
     private String email;
